@@ -1,13 +1,10 @@
 import React from 'react';
-import Menu from './componentes/Menu'; 
-import Footer from './componentes/Rodape';
+import Routes from './Routes';
 
 function App() {
   return (
     <div className="App">
-      <Menu />
-      {/* Outros componentes e conteúdo do aplicativo */}
-      <Footer />
+      <Routes/>
     </div>
   );
 }
