@@ -12,7 +12,7 @@ defaults:
 jobs:
   lint:
     name: Análise estática
-    runs-on: unbuto-lastest
+    runs-on: unbutu-lastest
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
