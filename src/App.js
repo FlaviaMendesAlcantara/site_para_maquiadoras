@@ -1,6 +1,7 @@
-import React from 'react';
-import Routes from './Routes';
-
+/**
+ * Componente funcional que representa a página de App.
+ * @return {JSX.Element} O componente JSX da página de App.
+ */
 function App() {
   return (
     <div className="App">

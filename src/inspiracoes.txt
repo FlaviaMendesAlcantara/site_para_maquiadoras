@@ -1,1 +1,5 @@
-https://maquiagembh.com.br/
+/**
+* https://maquiagembh.com.br/
+ * Componente funcional que representa a página de tutoriais.
+ * @returns {JSX.Element} O componente JSX da página de tutoriais.
+ */
