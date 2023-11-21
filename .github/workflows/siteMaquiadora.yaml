@@ -9,13 +9,12 @@ on:
 defaults:
   run:
     working-directory: GABI_MAKEUP
-    
+
 jobs:
   lint:
     name: Análise estática
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
         uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v2
