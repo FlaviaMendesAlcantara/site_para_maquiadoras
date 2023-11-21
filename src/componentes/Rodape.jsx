@@ -8,7 +8,7 @@ const footerStyle = {
   boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.20)',
 };
 /**
- * Componente funcional que representa a página de rodape.
+ * Componente funcional que representa a página de rodape que fica no fim da pagina.
  * @return {JSX.Element} O componente JSX da página de rodape.
  */
 function Footer() {
