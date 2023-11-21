@@ -1,0 +1,25 @@
+name: Api user CI
+on:
+  push:
+    branches:[main]
+  pull_request:
+    branches:[main]
+
+defaults:
+  run:
+    working-directory:GABI_MAKEUP
+
+jobs:
+  lint:
+    name: Análise estática
+    runs-on: unbuto-lastest
+    steps:
+      - uses: actons/checkout@v2
+      - name: use Node.js
+      uses:actions/setup-node@v2
+      whith:
+        node-version:20.x
+        cache:'npm'
+        cache-dependency-pach: GABI_MAKEUP/package-lock.json
+      - run: npm ci
+      - run: npm run lint
