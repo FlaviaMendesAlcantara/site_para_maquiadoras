@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: gabi_makeup
+    working-directory: GABI_MAKEUP
 
 jobs:
   lint:
