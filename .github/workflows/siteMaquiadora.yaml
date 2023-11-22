@@ -33,4 +33,4 @@ jobs:
       run: npm test
 
     - name: Lint code
-      run: npm run lint
+      run: npm run lint src/**
