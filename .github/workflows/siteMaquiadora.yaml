@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - feitoFlavia
   pull_request:
     branches: 
-      - main
+      - feitoFlavia
 
 jobs:
   build:
