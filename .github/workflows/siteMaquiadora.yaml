@@ -28,7 +28,7 @@ jobs:
 
     - name: Debug Linting Output
       run: ls -R
-      
+       
     - name: Install dependencies
       run: npm install
 
