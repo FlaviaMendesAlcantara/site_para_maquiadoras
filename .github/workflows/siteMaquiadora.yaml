@@ -1,39 +1,65 @@
-name: CI
+name: Static Code Analysis
 
 on:
-  push:
-    branches:
-      - feitoFlavia
   pull_request:
-    branches: 
-      - feitoFlavia
+    branches:
+      - main
 
 jobs:
-  build:
-
+  lint:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
 
-    - name: Debug Linting Output
-      run: ls -R
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+# name: CI
+
+# on:
+#   push:
+#     branches:
+#       - feitoFlavia
+#   pull_request:
+#     branches: 
+#       - feitoFlavia
+
+# jobs:
+#   build:
+
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node-version: [16.x]
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
+
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: ${{ matrix.node-version }}
+
+#     - name: Debug Linting Output
+#       run: ls -R
        
-    - name: Install dependencies
-      run: npm install
+#     - name: Install dependencies
+#       run: npm install
 
-    - name: Run tests
-      run: npm test
+#     - name: Run tests
+#       run: npm test
 
-    - name: Lint code
-      run: npm run lint 
+#     - name: Lint code
+#       run: npm run lint 
