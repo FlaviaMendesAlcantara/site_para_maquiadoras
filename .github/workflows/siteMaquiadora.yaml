@@ -24,7 +24,7 @@
 #       - name: Run ESLint
 #         run: npm run lint
 
-name: CI
+name: Static Code Analysis
 
 on:
   push:
@@ -32,10 +32,10 @@ on:
       - feitoFlavia
   pull_request:
     branches: 
-      - feitoFlavia
+      - main
 
 jobs:
-  build:
+  lint:
 
     runs-on: ubuntu-latest
 
@@ -54,7 +54,7 @@ jobs:
 
     - name: Debug Linting Output
       run: ls -R
-       
+      
     - name: Install dependencies
       run: npm install
 
