@@ -1,11 +1,14 @@
-import {render} from '@testing-library/react';
-// import {BrowserRouter as Router} from 'react-router-dom'; // or use HashRouter, MemoryRouter, etc.
-// import Menu from '../componentes/Menu';
+import React from 'react';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Menu from '../componentes/Menu';
 
-test('Menu renderizado com erros', () => {
+
+test('Menu renderizado sem erros', () => {
   render(
-      <Router>
-        <Menu />
-      </Router>
+    <Router>
+      <Menu />
+    </Router>
   );
 });

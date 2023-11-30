@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 /**
  * Componente funcional que representa a página de cursos.
  * @return {JSX.Element} O componente JSX da página de cursos.

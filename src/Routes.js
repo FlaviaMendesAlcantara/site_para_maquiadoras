@@ -1,8 +1,8 @@
-// import React from 'react';
-// import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-// import Menu from './componentes/Menu';
-// import Footer from './componentes/Rodape';
+import Menu from './componentes/Menu';
+import Footer from './componentes/Rodape';
 import HomePage from './pages/HomePage';
 import SobreMim from './pages/SobreMim';
 import Galeria from './pages/Galeria';

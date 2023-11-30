@@ -1,6 +1,6 @@
 
-// import React from 'react';
-// import {Navbar, Nav, Button} from 'react-bootstrap';
+import React from 'react';
+import {Navbar, Nav, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Menu.css'; // Importe o arquivo CSS para aplicar os estilos

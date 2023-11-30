@@ -1,3 +1,4 @@
+import React from "react";
 /**
  * Componente funcional que representa a página de inicial.
  * @return {JSX.Element} O componente JSX da página de inicial.
