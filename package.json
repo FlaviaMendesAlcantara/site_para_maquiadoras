@@ -20,6 +20,7 @@
         "@babel/preset-env": "^7.16.0",
         "@babel/preset-react": "^7.16.0",
         "babel-jest": "^27.4.6",
+        "eslint": "^8.54.0",
         "jest": "^27.4.6"
     },
     "scripts": {
