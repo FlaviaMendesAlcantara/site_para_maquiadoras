@@ -1,0 +1,47 @@
+.cursos-container {
+    text-align: center;
+}
+
+.cursos-list {
+    list-style: none;
+    padding: 0;
+}
+
+.curso-item {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;    
+    flex-direction: row;
+}
+
+h1 {
+    color: #333;
+}
+
+h2 {
+    color: #424242;
+}
+
+p {
+    color: #666;
+}
+
+.maquiagem-icon {
+    width: 300px;
+    height: 199px;
+    margin-left: 10px;
+}
+
+.curso-header {
+    display: flex;
+    align-items: center;
+}
+
+.curso-content {
+    margin-top: 1%; 
+    margin-left: 8%;
+}

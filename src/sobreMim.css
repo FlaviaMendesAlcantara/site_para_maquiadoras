@@ -1,0 +1,19 @@
+/* SobreMim.css */
+
+.SobreMim {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .SobreMim h1 {
+    color: #282c34; /* Cor principal para títulos */
+  }
+  
+  .SobreMim p {
+    color: #333; /* Cor principal para texto */
+    line-height: 1.6;
+  }
+  
+  /* Adicione mais estilos conforme necessário */
+  
