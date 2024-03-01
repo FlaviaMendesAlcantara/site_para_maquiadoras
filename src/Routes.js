@@ -5,7 +5,7 @@ import Menu from './componentes/Menu';
 import Footer from './componentes/Rodape';
 import HomePage from './pages/HomePage';
 import SobreMim from './pages/SobreMim';
-import Galeria from './pages/Galeria';
+import Galeria from './pages/Galeria.tsx';
 import Cursos from './pages/Cursos';
 import Tutoriais from './pages/Tutoriais';
 import Login from './pages/Login';

@@ -16,7 +16,7 @@ const schema = z.object({
 
         return selectedDate >= minDate && selectedDate <= maxDate;
     }, {
-        message: 'A data de nascimento deve estar entre 10 e 100 anos atrás'
+        message: 'A data de nascimento deve estar entre 10 e 100 anos.'
     }),
     tipoPele: z.enum(['seca', 'mista', 'oleosa', 'outro']),
     temAlergia: z.enum(['sim', 'nao']),

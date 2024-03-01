@@ -1,4 +1,5 @@
 // Galeria.js
+// Galeria.js
 
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";

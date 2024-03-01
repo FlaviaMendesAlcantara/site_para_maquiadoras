@@ -1,271 +1,192 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, Grid, InputLabel, Snackbar, Typography } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import Alert from '@material-ui/lab/Alert';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
+import React from 'react';
+import { Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
-import { zodResolver } from '@hookform/resolvers/zod';
+import '../InscricaoForm.css'
+import useInscricaoForm from './useInscricaoForm';
 
-import { z } from 'zod';
-
-const schema = z.object({
-    nome: z.string().min(1,"O nome é obrigatório.").max(255,"O nome excedeu o tamanho máximo."),
-    // telefone: z.string().min(14,"Digite um número de telefone válido.").max(14),
-    dataNascimento: z.coerce.date().refine((value) => {
-        const minDate = new Date();
-        minDate.setFullYear(minDate.getFullYear() - 10);
-        
-        const maxDate = new Date();
-        maxDate.setFullYear(maxDate.getFullYear() - 100);
-
-        const selectedDate = new Date(value);
-
-        return selectedDate >= minDate && selectedDate <= maxDate;
-    }, {
-        message: 'A data de nascimento deve estar entre 10 e 100 anos atrás'
-    }),
-    // tipoPele: z.enum(['seca', 'mista', 'oleosa', 'outro']),
-    // temAlergia: z.enum(['sim', 'nao']),
-    // alergia: z.string().optional(),
-    // tipoPagamento: z.enum(['pix', 'dinheiro', 'debito', 'credito']),
-    // modalidadeCurso: z.enum(['presencial', 'online']),
-});
 
 const InscricaoForm = ({ open, handleClose, cursoNome }) => {
-    const { handleSubmit, control, watch, formState: { errors }, reset} = useForm({
-        resolver: zodResolver(schema),
-    });
-    const [openAlert, setOpenAlert] = useState(false);
-
-    const onSubmit = async (data) => {
-        const validationResult = schema.safeParse(data);
-        if (validationResult.success) {
-            // Dados válidos, prosseguir com o envio
-            console.log('Dados do formulário:', data);
-            setOpenAlert(true); // Abre o alerta
-            setTimeout(() => {
-                setOpenAlert(false); // Fecha o alerta após um atraso
-                handleClose(); // Fecha o modal após um atraso
-                reset(); // Fecha o modal após um atraso
-            }, 2000);
-        } else {
-            // Dados inválidos, exibir erros
-            console.error('Erro de validação:', validationResult.error.errors);
-        }
-    };
-    
- 
+    const { handleSubmit, register, setValue, control,  errors, watchTemAlergia,openAlert,onSubmit } 
+    = useInscricaoForm(handleClose);
 
     return (
-        <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Inscrição para {cursoNome}</DialogTitle>
-            <DialogContent>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <Controller
-                                name="nome"
-                                control={control}
-                                defaultValue=""
-                                rules={{ required: "O nome é obrigatório." }}
-                                render={({ field }) => (
-                                    <TextField
-                                        label="Nome"
-                                        {...field}
-                                        fullWidth
-                                        size="large"
-                                        error={!!errors.nome}
-                                        helperText={errors.nome && errors.nome.message}
+        <div className={open ? "modal fade show" : "modal fade"} style={{ display: open ? 'block' : 'none' }}>
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Inscrição para {cursoNome}</h5>
+                        <button type="button" className="btn-close" aria-label="Close" onClick={handleClose}></button>
+                    </div>
+                    <div className="modal-body">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="row">
+                                {/* nome completo */}
+                                <div className="col-md-6">
+                                    <label htmlFor="nome" className="form-label">
+                                        <span className='titulo'>Nome Completo:</span>
+                                        <span className='vermelho'>*</span>
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        className={`form-control ${errors.nome ? 'is-invalid' : ''}`} 
+                                        {...register("nome")}
+                                        placeholder="Insira seu nome"
+                                        onChange={(e) => setValue('nome', e.target.value, { shouldValidate: true })}
                                     />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Controller
-                                name="dataNascimento"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <>
-                                        <TextField
-                                            label="Data de Nascimento"
-                                            type="date"
-                                            {...field}
-                                            fullWidth
-                                            size="large"
-                                            error={!!errors.dataNascimento}
-                                            helperText={errors.dataNascimento && errors.dataNascimento.message}
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                        />
-                                        {errors.dataNascimento && <Typography variant="body2" color="error">{errors.dataNascimento.message}</Typography>}
-                                    </>
-                                )}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
-                            <Controller
-                                name="telefone"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <InputMask
-                                        mask="(99) 99999-9999"
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                    >
-                                        {(inputProps) => 
-                                            <TextField 
-                                                {...inputProps}     
-                                                label="Telefone" 
-                                                fullWidth 
-                                                size="large"
+                                    {errors.nome && <span className="text-danger">{errors.nome.message}</span>}
+                                </div>
+                                {/* data de nascimento */}
+                                <div className="col-md-6">
+                                    <Controller
+                                        name="dataNascimento"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field }) => (
+                                            <div className="mb-3">
+                                                <label htmlFor="dataNascimento" className="form-label">  
+                                                    <span className='titulo'>Data de Nascimento:</span>
+                                                    <span className='vermelho'>*</span>
+                                                </label>
+                                                <input {...field} type="date" className="form-control" />
+                                                {errors.dataNascimento && <span className="text-danger">{errors.dataNascimento.message}</span>}
+                                            </div>
+                                        )}
+                                    />
+                                </div>
+                                {/* telefone */}
+                                <div className="col-md-6">   
+                                    <label htmlFor="telefone" className="form-label">                                        
+                                        <span className='titulo'>Nº telefone:</span>
+                                        <span className='vermelho'>*</span>
+                                    </label>                             
+                                    <Controller
+                                        name="telefone"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field }) => (
+                                            <InputMask
+                                                mask="(99) 99999-9999"
+                                                maskPlaceholder=""
+                                                className={`form-control ${errors.telefone ? 'is-invalid' : ''}`}
+                                                {...field}
+                                                placeholder='Insira seu telefone'
                                             />
-                                        }
-                                    </InputMask>
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel htmlFor="tipo-pele">Tipo de Pele</InputLabel>
-                            <Controller
-                                name="tipoPele"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <Select
-                                        {...field}
-                                        fullWidth
-                                        size="large"
-                                        style={{ color: 'rgba(0, 0, 0, 0.7)' }}
-                                        displayEmpty
-                                        renderValue={(value) => (value === '' ? 'Escolha uma opção' : value)}
-                                    >
-                                        <MenuItem value="seca">Seca</MenuItem>
-                                        <MenuItem value="mista">Mista</MenuItem>
-                                        <MenuItem value="oleosa">Oleosa</MenuItem>
-                                        <MenuItem value="outro">Não sei</MenuItem>
-                                    </Select>
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel htmlFor="tem-alergia">Tem Alergia?</InputLabel>
-                            <Controller
-                                name="temAlergia"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <Select 
-                                        {...field} 
-                                        fullWidth 
-                                        size="large"
-                                        style={{ color: 'rgba(0, 0, 0, 0.7)' }}
-                                        displayEmpty
-                                        renderValue={(value) => (value === '' ? 'Escolha uma opção' : value)}
-                                    >
-                                        <MenuItem value="sim">Sim</MenuItem>
-                                        <MenuItem value="nao">Não</MenuItem>
-                                    </Select>
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Controller
-                                name="alergia"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        label="Quais Alergias?"
-                                        {...field}
-                                        fullWidth
-                                        style={{ color: 'rgba(0, 0, 0, 0.7)' }}
-                                        displayEmpty
-                                        renderValue={(value) => (value === '' ? 'Escolha uma opção' : value)}
-                                        disabled={watch("temAlergia") === "nao"}
+                                        )}
                                     />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel htmlFor="modalidadeCurso">Modalidade do Curso</InputLabel>
-                            <Controller
-                                name="modalidadeCurso"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <Select 
-                                        {...field} 
-                                        fullWidth 
-                                        size="large"
-                                        style={{ color: 'rgba(0, 0, 0, 0.7)' }}
-                                        displayEmpty
-                                        renderValue={(value) => (value === '' ? 'Escolha uma opção' : value)}
-                                    >                                
-                                        <MenuItem value="presencial">Presencial</MenuItem>
-                                        <MenuItem value="online">Online</MenuItem>
-                                    </Select>
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel htmlFor="tipoPagamento">Tipo de Pagamento</InputLabel>
-                            <Controller
-                                name="tipoPagamento"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <Select 
-                                        {...field} 
-                                        fullWidth 
-                                        size="large"
-                                        style={{ color: 'rgba(0, 0, 0, 0.7)' }}
-                                        displayEmpty
-                                        renderValue={(value) => (value === '' ? 'Escolha uma opção' : value)}
-                                    >
-                                        <MenuItem value="pix">Pix</MenuItem>
-                                        <MenuItem value="dinheiro">Dinheiro</MenuItem>
-                                        <MenuItem value="debito">Débito</MenuItem>
-                                        <MenuItem value="credito">Crédito</MenuItem>
-                                    </Select>
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} container justify="center">
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                endIcon={<SaveIcon />}
-                                style={{ marginRight: '10px' }}
-                            >
-                                Salvar
-                            </Button>
-                            <Button
-                                type="button"
-                                variant="outlined"
-                                color="secondary"
-                                endIcon={<CancelIcon />}
-                                onClick={handleClose}
-                            >
-                                Cancelar
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </form>
-                {openAlert && (
-                    <Alert style={{ fontSize: '1.2rem' }} severity="success" onClose={() => setOpenAlert(false)}>
-                        Sua inscrição no curso foi feita com sucesso
-                    </Alert>
-                )}
+                                    {errors.telefone && <span className="text-danger">{errors.telefone.message}</span>}
+                                </div>
 
-            </DialogContent>
-        </Dialog>
+                                {/* tipo de pagamento */}
+                                <div className="col-md-6">
+                                    <label htmlFor="tipoPagamento" className="form-label">                                        
+                                        <span className='titulo'>Tipo de Pagamento:</span>
+                                        <span className='vermelho'>*</span>
+                                    </label>
+                                        <select 
+                                            className={`form-control ${errors.tipoPagamento ? 'is-invalid' : ''}`} 
+                                            {...register("tipoPagamento")}
+                                            placeholder="Insira tipo de pagamento"
+                                            onChange={(e) => setValue('tipoPagamento', e.target.value, { shouldValidate: true })}
+                                        >
+                                            <option value="">Escolha uma opção</option>
+                                            <option value="pix">Pix</option>
+                                            <option value="dinheiro">Dinheiro</option>
+                                            <option value="debito">Debito</option>
+                                            <option value="credito">Credito</option>
+                                        </select>
+                                    {errors.tipoPagamento && <span className="text-danger">{errors.tipoPagamento.message}</span>}
+                                </div>
+                                {/* modadelidade do curso*/}
+                                <div className="col-md-6">
+                                    <label htmlFor="modalidadeCurso" className="form-label">
+                                        <span className='titulo'>Modalidade do Curso:</span>
+                                        <span className='vermelho'>*</span>
+                                    </label>
+                                        <select 
+                                            className={`form-control ${errors.modalidadeCurso ? 'is-invalid' : ''}`} 
+                                            {...register("modalidadeCurso")}
+                                            placeholder="Escolha a modalidade do Curso"
+                                            onChange={(e) => setValue('modalidadeCurso', e.target.value, { shouldValidate: true })}
+                                        >
+                                            <option value="">Escolha uma opção</option>
+                                            <option value="onLine">On Line</option>
+                                            <option value="presencial">Presencial</option>
+                                        </select>
+                                    {errors.modalidadeCurso && <span className="text-danger">{errors.modalidadeCurso.message}</span>}
+                                </div>
+                                
+                                {/* tipo de pele */}
+                                <div className="col-md-6">
+                                    <label htmlFor="tipoPele" className="form-label">                                        
+                                        <span className='titulo'>Tipo de Pele:</span>
+                                        <span className='vermelho'>*</span>
+                                    </label>
+                                        <select 
+                                            className={`form-control ${errors.tipoPele ? 'is-invalid' : ''}`} 
+                                            {...register("tipoPele")}
+                                            placeholder="Insira seu tipoPele"
+                                            onChange={(e) => setValue('tipoPele', e.target.value, { shouldValidate: true })}
+                                        >
+                                            <option value="">Escolha uma opção</option>
+                                            <option value="seca">Seca</option>
+                                            <option value="mista">Mista</option>
+                                            <option value="oleosa">Oleosa</option>
+                                            <option value="outro">Não sei</option>
+                                        </select>
+                                    {errors.tipoPele && <span className="text-danger">{errors.tipoPele.message}</span>}
+                                </div>
+
+                                {/*tem Alergias*/}
+                                <div className="col-md-6">
+                                    <label htmlFor="temAlergia" className="form-label">                                        
+                                        <span className='titulo'>Tem Alergia?</span>
+                                        <span className='vermelho'>*</span>
+                                    </label>
+                                        <select 
+                                            className={`form-control ${errors.temAlergia ? 'is-invalid' : ''}`} 
+                                            {...register("temAlergia")}
+                                            placeholder="Escolha uma opção..."
+                                            onChange={(e) => setValue('temAlergia', e.target.value, { shouldValidate: true })}
+                                        >
+                                            <option value="">Escolha uma opção</option>
+                                            <option value="sim">Sim</option>
+                                            <option value="nao">Não</option>
+                                        </select>
+                                    {errors.temAlergia && <span className="text-danger">{errors.temAlergia.message}</span>}
+                                </div>
+                                {/* quais alergias*/}
+                                {watchTemAlergia === "sim" && (
+                                    <div className="col-md-6">
+                                        <label htmlFor="alergia" className="form-label">                                            
+                                            <span className='titulo'>Quais Alergias?</span>
+                                            <span className='vermelho'>*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            className={`form-control ${errors.alergia ? 'is-invalid' : ''}`} 
+                                            {...register("alergia")}
+                                            placeholder="Informe quais tipos de alergia você tem."
+                                            onChange={(e) => setValue('alergia', e.target.value, { shouldValidate: true })}
+                                            required={watchTemAlergia === "sim"}
+                                        />
+                                        {errors.alergia && <span className="text-danger">{errors.alergia.message}</span>}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mt-3"> {/* Espaço de margem na parte inferior */}
+                                <button type="submit" className="btn btn-secondary me-2">Confirmar</button>
+                                <button type="button" className="btn btn-danger" onClick={handleClose}>Cancelar</button>
+                            </div>
+                        </form>
+                        {openAlert && (
+                            <div className="alert alert-success mt-3" role="alert">
+                                Sua inscrição no curso foi feita com sucesso
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 
