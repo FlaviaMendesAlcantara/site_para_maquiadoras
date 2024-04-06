@@ -32,16 +32,16 @@ export const PhotoList = styled.div`
     display: grid;
     grid-template-columns:repeat(4, 1fr);
     gap: 10px;
-    color: #ffffff;
+    color: #4F4F4F;
 `;
 
 export const UploadForm = styled.form`
-    background-color: #3D3F43;
+    background-color: #DCDCDC;
     padding: 15px;
     border-radius: 10px;
 
     input[type=submit] {
-        background-color: #756DF4;
+        background-color: #808080;
         border:0;
         color: #FFF;
         padding: 8px 16px;
@@ -55,3 +55,4 @@ export const UploadForm = styled.form`
         }
     }
 `;
+

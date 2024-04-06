@@ -10,6 +10,7 @@ import formatura from '../img/formatura.jpg';
 import debutante from '../img/debutante.jpg';
 import debutante2 from '../img/debutante2.jpg';
 import debutante3 from '../img/debutante3.jpg';
+import '../../src/homePage.css';
 /**
  * Componente funcional que representa a página de inicial.
  * @return {JSX.Element} O componente JSX da página de inicial.
@@ -43,7 +44,10 @@ const HomePage = () => {
       <Carousel>
         {carouselItems.map(item => (
           <Carousel.Item key={item.id}>
-            <img className="d-block w-100" src={item.image} alt={item.caption}  />
+            <img className="d-block w-100 carousel-img" 
+              src={item.image} 
+              alt={item.caption}  
+            />
             <Carousel.Caption>
               <p>{item.caption}</p>
             </Carousel.Caption>

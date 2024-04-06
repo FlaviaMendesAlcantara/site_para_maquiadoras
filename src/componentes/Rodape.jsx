@@ -1,11 +1,18 @@
 import React from 'react';
 import {Container} from 'react-bootstrap';
 
+// const footerStyle = {
+//   position: 'fixed',
+//   bottom: 0,
+//   width: '100%',
+//   boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.20)',
+// };
 const footerStyle = {
   position: 'fixed',
   bottom: 0,
   width: '100%',
   boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.20)',
+  marginTop: '20px', // Adicione uma margem superior para criar espaço entre o conteúdo e o rodapé
 };
 /**
  * Componente funcional que representa a página de rodape que fica no fim da pagina
