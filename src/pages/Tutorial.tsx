@@ -54,6 +54,7 @@ function Tutorial() {
         const formData = new FormData(e.currentTarget);
         const file = formData.get('video') as File;
         const fileName = formData.get('fileName') as string;
+        console.log('filename: ' + JSON.stringify(formData));
 
         // Verifica se o nome está vazio
         if (fileName.trim() === '') {
@@ -109,10 +110,10 @@ function Tutorial() {
                     />
                     <C.UploadTitle
                         type='input'
-                        name='titulo' 
+                        name='fileName' 
                         placeholder='Título do vídeo...' 
                         value={fileName} 
-                        onChange={(e) => setFileName(e.target.value)}
+                        onChange={(e) => setFileName(e.target.value)} // Adicionando onChange para atualizar o estado do título
                     />
                     <C.UploadDescription 
                         name='description' 
@@ -121,17 +122,18 @@ function Tutorial() {
                         onChange={(e) => setDescription(e.target.value)} 
                         maxLength={150} 
                         rows={4} 
-                        cols={74} 
+                        cols={50} 
                     />
                     <C.UploadButton type='submit' name='Enviar'>Enviar</C.UploadButton>
-
                     {uploading && "Enviando..."}
                     {showNameError && <div style={{ color: 'red' }}>{fileName.trim() === '' ? 'Por favor, digite uma descrição para o tutorial.' : 'Esse nome já está em uso. Por favor, escolha outro nome.'}</div>}
                 </C.UploadForm>
 
+
                 {/* Vídeos */}             
                 {videos.map((video, index) => (
-                    <VideoItem key={index} url={video.url} name={video.name} description={video.description} onDelete={handleDeleteVideo} />
+                    <VideoItem key={index} url={video.url} name={video.name} description={video.description} onDelete={handleDeleteVideo} 
+                    />
                 ))}
                 
                 {loading &&

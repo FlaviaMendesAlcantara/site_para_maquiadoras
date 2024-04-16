@@ -43,6 +43,7 @@ export const UploadForm = styled.form`
 `;
 
 export const UploadInput = styled.input`
+    width: calc(100% - 32px); 
     margin-bottom: 10px; // Adiciona espaço entre o campo de entrada e outros elementos
     width: 100%; // Garante que o campo de entrada ocupe toda a largura disponível
     padding: 8px; // Adiciona preenchimento interno ao campo de entrada
@@ -53,6 +54,7 @@ export const UploadInput = styled.input`
 `;
 
 export const UploadDescription = styled.textarea`
+    width: calc(100% - 32px); 
     margin-bottom: 10px; // Adiciona espaço abaixo do textarea
 `;
 
@@ -66,10 +68,11 @@ export const UploadButton = styled.button`
     cursor: pointer;
     transition: opacity 0.3s;
     margin-bottom: 10px; // Adiciona espaço abaixo do botão de envio
+    display: block; // Força o botão a ser exibido em uma nova linha
 `;
 
 export const UploadTitle = styled.input`
-    width: 100%;
+    width: calc(100% - 32px); 
     max-width: 100%; // Garante que o input ocupe todo o espaço disponível
     padding: 8px; // Adiciona um preenchimento interno
     border: 0.5px solid #ccc; // Adiciona uma borda para melhorar a aparência

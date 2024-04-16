@@ -34,7 +34,7 @@ export const insert = async (file: File, fileName: string, description: string) 
         
         const existingNames = videoList.items.map(item => item.name.split('.')[0]); // Extrair nomes dos videos existentes
 
-        // Verificar se o nome já está em uso
+       // Verificar se o nome já está em uso
         if (existingNames.includes(newFileName)) {
             throw new Error('Esse nome já está em uso. Por favor, escolha outro nome.');
         }
@@ -47,10 +47,17 @@ export const insert = async (file: File, fileName: string, description: string) 
             }
         };
 
-        let upload = await uploadBytes(newFile, file,metadata);
+        let upload = await uploadBytes(
+            newFile, 
+            file
+            ,metadata
+        );
         let videoUrl = await getDownloadURL(upload.ref);
 
-        return { name: newFileName, url: videoUrl, description: description } as Video;
+        return { name: newFileName, 
+            url: videoUrl
+            , description: description 
+        } as Video;
     } else {
         return new Error('Tipo de arquivo não permitido.');
     }
