@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'drf_yasg',
     'apisGabiMakeup',
     'cursos',
+    'perfil_usuario',
+    'usuarios',
+    'inscricao_cursos',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +78,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'apisGabiMakeup.wsgi.application'
 
+#condfiguracao do swagger
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'api_version': 'v1',
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete',
+        'head',
+    ],
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
