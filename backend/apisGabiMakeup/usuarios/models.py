@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from perfil_usuario.models import PerfilUsuario
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, usu_nome, usu_perfil, usu_ativo=True, **extra_fields):
+    def create_user(self, usu_nome, usu_perfil, usu_ativo=True, password=None, **extra_fields):
         if not usu_nome:
             raise ValueError('O nome do usuário deve ser fornecido')
         usuario = self.model(
@@ -12,7 +12,8 @@ class UsuarioManager(BaseUserManager):
             usu_ativo=usu_ativo,
             **extra_fields,
         )
-        usuario.set_password(extra_fields.get('password'))
+        if password:
+            usuario.set_password(password)
         usuario.save(using=self._db)
         return usuario
 
@@ -27,7 +28,7 @@ class Usuario(AbstractBaseUser):
     usu_perfil = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE, related_name='usuarios', db_column='per_id')
     usu_ativo = models.BooleanField(default=True)
     usu_data_criacao = models.DateTimeField(auto_now_add=True)
-    usu_data_alteracao = models.DateTimeField(auto_now=True)
+    usu_data_alteracao = models.DateTimeField(blank=True, null=True)
     usu_data_exclusao = models.DateTimeField(blank=True, null=True)
 
     objects = UsuarioManager()

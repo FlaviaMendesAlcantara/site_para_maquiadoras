@@ -6,4 +6,4 @@ from .serializers import InscricaoCursoSerializer
 class InscricaoCursoViewSet(viewsets.ModelViewSet):
     queryset = InscricaoCurso.objects.all()
     serializer_class = InscricaoCursoSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
