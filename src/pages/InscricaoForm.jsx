@@ -5,16 +5,17 @@ import '../InscricaoForm.css'
 import useInscricaoForm from './useInscricaoForm';
 
 
-const InscricaoForm = ({ open, handleClose, cursoNome }) => {
-    const { handleSubmit, register, setValue, control,  errors, watchTemAlergia,openAlert,onSubmit } 
-    = useInscricaoForm(handleClose);
+const InscricaoForm = ({ open, handleClose, curso }) => {
+    const { handleSubmit, register, setValue, control,  errors, watchTemAlergia
+        ,openAlert,onSubmit,showSuccessMessage, errorMessage, } 
+    = useInscricaoForm(handleClose,curso);
 
     return (
         <div className={open ? "modal fade show" : "modal fade"} style={{ display: open ? 'block' : 'none' }}>
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Inscrição para {cursoNome}</h5>
+                        <h5 className="modal-title">Inscrição para {curso ? curso.cur_titulo : 'Curso Indisponível'}</h5>
                         <button type="button" className="btn-close" aria-label="Close" onClick={handleClose}></button>
                     </div>
                     <div className="modal-body">
@@ -89,10 +90,10 @@ const InscricaoForm = ({ open, handleClose, cursoNome }) => {
                                             onChange={(e) => setValue('tipoPagamento', e.target.value, { shouldValidate: true })}
                                         >
                                             <option value="">Escolha uma opção</option>
-                                            <option value="pix">Pix</option>
-                                            <option value="dinheiro">Dinheiro</option>
-                                            <option value="debito">Debito</option>
-                                            <option value="credito">Credito</option>
+                                            <option value="PIX">Pix</option>
+                                            <option value="DINHEIRO">Dinheiro</option>
+                                            <option value="DEBITO">Debito</option>
+                                            <option value="CREDITO">Credito</option>
                                         </select>
                                     {errors.tipoPagamento && <span className="text-danger">{errors.tipoPagamento.message}</span>}
                                 </div>
@@ -109,8 +110,8 @@ const InscricaoForm = ({ open, handleClose, cursoNome }) => {
                                             onChange={(e) => setValue('modalidadeCurso', e.target.value, { shouldValidate: true })}
                                         >
                                             <option value="">Escolha uma opção</option>
-                                            <option value="onLine">On Line</option>
-                                            <option value="presencial">Presencial</option>
+                                            <option value="ONLINE">On Line</option>
+                                            <option value="PRESENCIAL">Presencial</option>
                                         </select>
                                     {errors.modalidadeCurso && <span className="text-danger">{errors.modalidadeCurso.message}</span>}
                                 </div>
@@ -128,10 +129,10 @@ const InscricaoForm = ({ open, handleClose, cursoNome }) => {
                                             onChange={(e) => setValue('tipoPele', e.target.value, { shouldValidate: true })}
                                         >
                                             <option value="">Escolha uma opção</option>
-                                            <option value="seca">Seca</option>
-                                            <option value="mista">Mista</option>
-                                            <option value="oleosa">Oleosa</option>
-                                            <option value="outro">Não sei</option>
+                                            <option value="SECA">Seca</option>
+                                            <option value="MISTA">Mista</option>
+                                            <option value="OLEOSA">Oleosa</option>
+                                            <option value="NAO_SEI">Não sei</option>
                                         </select>
                                     {errors.tipoPele && <span className="text-danger">{errors.tipoPele.message}</span>}
                                 </div>
@@ -178,11 +179,17 @@ const InscricaoForm = ({ open, handleClose, cursoNome }) => {
                                 <button type="button" className="btn btn-danger" onClick={handleClose}>Cancelar</button>
                             </div>
                         </form>
-                        {openAlert && (
+                        {openAlert && showSuccessMessage && (
                             <div className="alert alert-success mt-3" role="alert">
                                 Sua inscrição no curso foi feita com sucesso
                             </div>
                         )}
+                        {errorMessage && (
+                            <div className="alert alert-danger mt-3" role="alert">
+                                {errorMessage}
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </div>

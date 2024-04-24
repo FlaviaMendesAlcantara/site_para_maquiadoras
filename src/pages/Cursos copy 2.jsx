@@ -1,45 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { format } from 'date-fns'; 
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import "../Cursos.css";
 import maquiagemIcon from "../img/autoMaquiagem.jpg"; 
 import InscricaoForm from "./InscricaoForm.jsx";
+import NovoCursoFormulario from './NovoCursoFormulario.jsx';
+import { Modal } from 'react-bootstrap';
 
 /**
  * Componente funcional que representa a página de cursos.
  * @return {JSX.Element} O componente JSX da página de cursos.
  */
 
+const cursosData = [
+  {
+    id: 1,
+    nome: "Curso de Automaquiagem Básica",
+    descricao: "Aprenda técnicas básicas de automaquiagem.",
+    inicioInscricoes: "01/02/2024",   
+    terminoInscricoes: "15/02/2024",
+    cargaHoraria: "10 horas",
+    valor: "R$ 50,00",
+    inicioCurso: "01/03/2023",
+    terminoCurso: "10/03/2023",
+  },
+  // Adicione mais cursos conforme necessário
+];
+
 function Cursos() {
 
-  const [cursosData, setCursosData] = useState([]);
   const [inscricaoOpen, setInscricaoOpen] = useState(false);
   const [cursoSelecionado, setCursoSelecionado] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(true);  
+  const [modalAberto, setModalAberto] = useState(false);
 
-  useEffect(() => {
-    async function fetchCursos() {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/cursos/');
-        const cursosFormatted = response.data
-        .filter(curso => curso.cur_ativo) // Filtrando apenas cursos ativos
-        .map(curso => ({
-          ...curso,
-          cur_data_inicio: format(new Date(curso.cur_data_inicio), 'dd/MM/yyyy'), // Formatando a data de início
-          cur_data_fim: format(new Date(curso.cur_data_fim), 'dd/MM/yyyy'), // Formatando a data de término
-        }));
-        setCursosData(cursosFormatted);
-      } catch (error) {
-        console.error('Erro ao buscar os cursos:', error);
-      }
-    }
-
-    fetchCursos();
-  }, []);
+  //setIsAdmin(true);
 
   const handleInscricaoOpen = (curso) => {
-    setCursoSelecionado(curso);
+    setCursoSelecionado(curso.nome);
     setInscricaoOpen(true);
   };
 
@@ -47,14 +45,26 @@ function Cursos() {
     setInscricaoOpen(false);
   };
 
-  // const handleFecharModal = () => {
-  //   setModalAberto(false); // Fecha o modal
-  // };
+  const handleNovoCurso = () => {
+    setModalAberto(true);
+  };
+
+  const handleFecharModal = () => {
+    setModalAberto(false); // Fecha o modal
+  };
 
   return (
-    <div className="cursos-container"> 
+    <div className="cursos-container">      
 
-      {/* // No componente Cursos.jsx
+      <div className="button-container">
+        {isAdmin && (
+          <Button onClick={handleNovoCurso} variant="contained" color="primary">
+            Criar Novo Curso
+          </Button>          
+        )}        
+      </div>
+
+      {/* // No componente Cursos.jsx */}
     <Modal show={modalAberto} onHide={handleFecharModal}>
       <Modal.Header closeButton>
         <Modal.Title>Criar Novo Curso</Modal.Title>
@@ -62,12 +72,13 @@ function Cursos() {
       <Modal.Body>
         <NovoCursoFormulario handleClose={handleFecharModal} />
       </Modal.Body>
-    </Modal> */}
+    </Modal>
+
       
       <h1>Cursos Disponíveis</h1>
       <ul className="cursos-list">
         {cursosData.map((curso) => (
-          <li key={curso.cur_id} className="curso-item">
+          <li key={curso.id} className="curso-item">
             <div className="curso-header">             
               <img
                 src={maquiagemIcon}
@@ -76,17 +87,21 @@ function Cursos() {
               />             
             </div>
             <div className="curso-content">
-              <h3>{curso.cur_titulo}</h3>
-              <p>{curso.cur_descricao}</p>               
+              <h3>{curso.nome}</h3>
+              <p>{curso.descricao}</p>               
               <p>
-                <strong>Data do Curso:</strong> {curso.cur_data_inicio} até{" "}
-                {curso.cur_data_fim}
+                <strong>Data de Inscrição:</strong> {curso.inicioInscricoes} até{" "}
+                {curso.terminoInscricoes}
               </p>
               <p>
-                <strong>Carga Horária:</strong> {curso.cur_carga_horaria} hs
+                <strong>Carga Horária:</strong> {curso.cargaHoraria}
               </p>
               <p>
-                <strong>Valor do investimento:</strong> R${curso.cur_valor}
+                <strong>Valor:</strong> {curso.valor}
+              </p>
+              <p>
+                <strong>Data do Curso:</strong> {curso.inicioCurso} até{" "}
+                {curso.terminoCurso}
               </p>
             </div>
             
@@ -106,7 +121,7 @@ function Cursos() {
         <InscricaoForm
           open={inscricaoOpen}
           handleClose={handleInscricaoClose}
-          curso={cursoSelecionado}
+          cursoNome={cursoSelecionado}
         />
       </ul>
     </div>

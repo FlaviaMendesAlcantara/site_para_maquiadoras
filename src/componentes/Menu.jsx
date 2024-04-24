@@ -30,8 +30,9 @@ function Menu() {
           <Nav.Link as={Link} to="/home" className="menu-link">Início</Nav.Link>
           <Nav.Link as={Link} to="/sobre" className="menu-link">Sobre Mim</Nav.Link>
           <Nav.Link as={Link} to="/galeria" className="menu-link">Galeria</Nav.Link>
-          <Nav.Link as={Link} to="/cursos" className="menu-link">Cursos</Nav.Link>
+          <Nav.Link as={Link} to="/cursos" className="menu-link">Catálogo de Cursos</Nav.Link>
           <Nav.Link as={Link} to="/tutoriais" className="menu-link">Tutoriais</Nav.Link>
+          <Nav.Link as={Link} to="/painel" className="menu-link">Painel de Administração</Nav.Link>
           <div>
           </div>
         </Nav>

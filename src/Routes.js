@@ -8,6 +8,7 @@ import Cursos from './pages/Cursos';
 import Tutoriais from './pages/Tutorial.tsx';
 import Login from './pages/Login';
 import Layout from './Layout.jsx';
+import PainelAdminstracao from './pages/PainelAdministracao.jsx';
 
 const Routes = () => {
   return (
@@ -21,6 +22,7 @@ const Routes = () => {
             <Route path="/cursos" component={Cursos}/>
             <Route path="/tutoriais" component={Tutoriais} />
             <Route path="/login" component={Login} />
+            <Route path="/painel" component={PainelAdminstracao} />
           </Switch>
         </Layout>
       </div>

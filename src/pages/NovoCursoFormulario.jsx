@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState} from 'react';
 import { Controller } from 'react-hook-form';
 import { Alert } from 'react-bootstrap';
 import '../InscricaoForm.css';
 import useNovoCursoFormulario from './useNovoCursoFormulario';
 
 const NovoCursoFormulario = ({ handleClose }) => {
-    const { handleSubmit, register, control,  errors, showSuccessMessage,setShowSuccessMessage,onSubmit } 
-    = useNovoCursoFormulario(handleClose);
-
+    const { handleSubmit, register, control,  errors, showSuccessMessage,setShowSuccessMessage
+        ,onSubmit, setErrorMessage , errorMessage } = useNovoCursoFormulario(handleClose);
+    
     return (
         <div className="modal-content">
             <div className="modal-header justify-content-center">
@@ -104,9 +104,15 @@ const NovoCursoFormulario = ({ handleClose }) => {
                         </div>
                     </div>
                 </form>
+                {/* Exibição de mensagens de sucesso e erro */}
                 {showSuccessMessage && (
                     <Alert variant="success" onClose={() => setShowSuccessMessage(false)} dismissible>
                         Curso criado com sucesso!
+                    </Alert>
+                )}
+                {errorMessage && ( // Verifica se há uma mensagem de erro para exibir
+                    <Alert variant="danger" onClose={() => setErrorMessage(null)} dismissible>
+                        <div dangerouslySetInnerHTML={{ __html: errorMessage }}></div>
                     </Alert>
                 )}
             </div>
