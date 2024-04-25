@@ -18,6 +18,8 @@
         "firebase": "^10.8.1",
         "react": "^16.8.0",
         "react-bootstrap": "^2.10.0",
+        "react-bootstrap-table-next": "^4.0.3",
+        "react-data-table-component": "^7.6.2",
         "react-dom": "^16.8.0",
         "react-dropzone": "^14.2.3",
         "react-hook-form": "^7.50.1",
