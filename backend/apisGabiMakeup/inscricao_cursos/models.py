@@ -27,7 +27,7 @@ class InscricaoCurso(models.Model):
     ]
     ins_tipo_pele = models.CharField(max_length=10, choices=ins_tipo_pele_choices)
     ins_alergia = models.BooleanField()
-    ins_tipo_alergia = models.TextField(blank=True)
+    ins_tipo_alergia = models.TextField(blank=True,null=True)
     ins_data_inscricao = models.DateTimeField(auto_now_add=True)
     ins_data_alteracao = models.DateTimeField(auto_now=True)
     ins_data_exclusao = models.DateTimeField(blank=True, null=True)
