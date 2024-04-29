@@ -16,7 +16,8 @@ const Routes = () => {
       <div>
         <Layout>
           <Switch>
-            <Route path="/home" component={HomePage}/>
+            <Route exact path="/" component={HomePage}/>
+            <Route path="/home" component={HomePage}/>            
             <Route path="/sobre" component={SobreMim}/>
             <Route path="/galeria" component={Galeria}/>
             <Route path="/cursos" component={Cursos}/>
