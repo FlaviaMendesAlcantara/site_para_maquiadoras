@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { GoogleLogin } from '@react-oauth/google';
+import ModalCadastrese from './ModalCadastrese';
 // import FacebookLogin from 'react-facebook-login';
 // import { blue } from '@material-ui/core/colors';
 
@@ -64,6 +65,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login() {
+  const [cadastreseOpen, setCadastreseOpen] = useState(false);
+
+  const handleSignup = () => {
+    setCadastreseOpen(true);
+  };
+
+  const handleCloseSignup = () => {
+    setCadastreseOpen(false);
+  };
 
   const classes = useStyles();
   const responseMessage = (response) => {
@@ -93,9 +103,17 @@ function Login() {
                 Cancelar
               </Button>
             </Box>
+            
             <Box className={classes.googleButton}>
               <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
             </Box>
+
+            <Box>
+              <Button variant="contained" color="primary" onClick={handleSignup}>
+                Cadastre-se
+              </Button>
+            </Box>
+
             {/* <Box className={classes.facebookButton}>
               <FacebookLogin
                 appId="Seu-ID-do-Facebook"
@@ -108,6 +126,7 @@ function Login() {
           </form>
         </Box>
       </Box>
+      <ModalCadastrese open={cadastreseOpen} onClose={handleCloseSignup} />
     </ThemeProvider>
   );
 }
