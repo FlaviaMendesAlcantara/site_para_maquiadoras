@@ -20,42 +20,57 @@ const useModalCadastrese = () => {
         console.log('Dados do formulário:', data);
         const validationResult = schemaCadastroUsuario.safeParse(data);
         if (validationResult.success) {
-
+    
             // Dados válidos, prosseguir com o envio
             console.log('Dados do formulário:', data);
             try {
-                const response = await axios.post('http://127.0.0.1:8000/usuarios/', 
-              //  console.log(
-                {
+                // Buscar o perfil de usuário com o nome "usuário padrão"
+                const perfisResponse = await axios.get('http://127.0.0.1:8000/perfis/');
+                const usuarioPadraoPerfil = perfisResponse.data.find(perfil => perfil.per_nome === 'usuário padrão');
+                
+                if (!usuarioPadraoPerfil) {
+                    console.error('Perfil de usuário "usuário padrão" não encontrado.');
+                    return;
+                }
+                console.log(usuarioPadraoPerfil.per_id);
+                const response = await axios.post('http://127.0.0.1:8000/usuarios/', {
                     usu_usuario: data.usuario,
                     usu_nome_completo: data.nomeCompleto,
-                    password : data.senha,
-                    // usu_perfil: 1,  
+                    password: data.senha,
+                    usu_perfil: usuarioPadraoPerfil.per_id,  // Usar o per_id do perfil de usuário "usuário padrão"
                     usu_ativo: true,
                     usu_data_criacao: new Date().toISOString(),
                     usu_data_alteracao: new Date().toISOString(),
                     usu_data_exclusao: new Date().toISOString(),
                 });
-
-               // console.log('Resposta da API:', response.data);
-                setOpenAlert(true); 
+                console.log(response);
+                setOpenAlert(true);
                 setShowSuccessMessage(true);
                 setTimeout(() => {
                     setShowSuccessMessage(false);
                     setErrorMessage(null);
-                  // handleClose();
                     reset();
                 }, 2000);
-
+    
             } catch (error) {
-                console.error('Erro ao criar usuário:', error);
-                setErrorMessage(`Erro ao criar usuario. Por favor, tente novamente.<br /><br />Detalhes do erro:<br />${error.message}`);
+                // Se ocorrer um erro na requisição, vamos acessar a mensagem de erro da API
+                if (error.response && error.response.data && error.response.data.error) {
+                    const errorMessage = error.response.data.error;
+                    setErrorMessage('Erro ao criar usuário: '+ errorMessage);
+                    console.error('Erro ao criar usuário: ', errorMessage);
+                } else {
+                    // Caso contrário, trata-se de um erro inesperado e você pode lidar com ele aqui
+                    console.error('Erro inesperado ao criar usuário:', error);
+                    setErrorMessage(`</br> Erro ao criar usuário. <br /><br />Detalhes do erro:<br />${error.message}`);
+                }
+               // console.error('Erro ao criar usuário:', error);
+              //  setErrorMessage(`</br> Erro ao criar usuário. <br /><br />Detalhes do erro:<br />${error.message}`);
             }
         } else {
             // Dados inválidos, exibir erros
             console.error('Erro de validação:', validationResult.error.errors);
         }
-    };
+    };    
 
     // Retorna um objeto com todos os valores que você deseja exportar
     return {
