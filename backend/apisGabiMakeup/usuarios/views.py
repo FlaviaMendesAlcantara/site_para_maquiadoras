@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login
-from rest_framework import generics
+from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import ValidationError
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import status
 from .models import Usuario
 from .serializers import UsuarioSerializer
-from perfil_usuario.models import PerfilUsuario  # Importe o modelo PerfilUsuario
+from perfil_usuario.models import PerfilUsuario
 
 class UsuarioListCreate(generics.ListCreateAPIView):
     queryset = Usuario.objects.all()
@@ -13,23 +14,27 @@ class UsuarioListCreate(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         print('Dados recebidos no backend:', request.data)
         data = request.data.copy()
+
+        # Buscar o perfil de usuário com o nome "usuário padrão"
+        perfil_padrao = get_object_or_404(PerfilUsuario, per_nome="usuário padrão")
+
+        # Adicionar o perfil de usuário encontrado aos dados do usuário
+        data['usu_perfil'] = perfil_padrao.pk 
         
-        # Verificar se 'usu_usuario' e 'password' estão nos dados do request
-        if 'usu_usuario' not in data or 'password' not in data:
-            return Response({'error': 'usu_usuario(usuario) e password(senha) precisa ser preenchido.'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Criar o usuário com os dados fornecidos
         serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
+        
+        
+        try:
+            serializer.is_valid(raise_exception=True)
+        except ValidationError:
+            return Response({'error': 'Nome de usuário já existe.'}, status=status.HTTP_400_BAD_REQUEST)
         
         # Criptografar a senha antes de salvar
-        user = Usuario.objects.create_user(
-            usu_usuario=data['usu_usuario'],
-            usu_nome_completo=data.get('usu_nome_completo', ''),  # Adicionando suporte para usu_nome_completo opcional
-            # Passando o objeto PerfilUsuario ao invés do ID
-            usu_ativo=True,
-            password=data['password']
-        )
+        password = data.pop('password', None)
+        
+        user = serializer.save()
+        user.set_password(password)
+        user.save()
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
