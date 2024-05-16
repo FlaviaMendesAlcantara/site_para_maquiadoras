@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from cursos.views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
 from perfil_usuario.views import PerfilUsuarioListCreate, PerfilUsuarioDetail
-from usuarios.views import UsuarioListCreate, UsuarioDetail
+from usuarios.views import UsuarioListCreate, UsuarioDetail,UsuarioAuthenticationAPIView
 from inscricao_cursos.views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
 
 from rest_framework import routers, permissions
@@ -41,4 +41,7 @@ urlpatterns = [
 
     path('usuarios/', UsuarioListCreate.as_view(), name='usuario-list-create'),
     path('usuarios/<int:pk>/', UsuarioDetail.as_view(), name='usuario-detail'),
+
+    path('usuarios/authenticate/', UsuarioAuthenticationAPIView.as_view(), name='usuario-authenticate')
+    
 ]
