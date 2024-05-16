@@ -5,8 +5,10 @@ import { Video } from '../types/Video.ts';
 import { VideoItem } from '../componentes/VideoItem/index.tsx';
 import { listAll, ref } from 'firebase/storage';
 import { storage } from '../libs/firebase.ts';
+import { useAuth } from '../contexto/useAuth.jsx';
 
 function Tutorial() {
+    const { userLoggedIn, userIsAdmin } = useAuth();
     const [uploading, setUploading] = useState(false);
     const [loading, setLoading] = useState(false);
     const [videos, setVideos] = useState<Video[]>([]);
@@ -101,38 +103,46 @@ function Tutorial() {
                 <C.Header>Tutoriais da Gabi</C.Header>
 
                 {/* Area de upload  */}
-                <C.UploadForm method="POST" onSubmit={handleFormSubmit}>
-                    <C.UploadInput
-                        type='file'
-                        name='video'
-                        onChange={(e) => setVideoFile(e.target.files ? e.target.files[0] : null)}
-                        ref={fileInputRef}
-                    />
-                    <C.UploadTitle
-                        type='input'
-                        name='fileName' 
-                        placeholder='Título do vídeo...' 
-                        value={fileName} 
-                        onChange={(e) => setFileName(e.target.value)} // Adicionando onChange para atualizar o estado do título
-                    />
-                    <C.UploadDescription 
-                        name='description' 
-                        placeholder='Descrição do tutorial (máximo de 150 caracteres)' 
-                        value={description} 
-                        onChange={(e) => setDescription(e.target.value)} 
-                        maxLength={150} 
-                        rows={4} 
-                        cols={50} 
-                    />
-                    <C.UploadButton type='submit' name='Enviar'>Enviar</C.UploadButton>
-                    {uploading && "Enviando..."}
-                    {showNameError && <div style={{ color: 'red' }}>{fileName.trim() === '' ? 'Por favor, digite uma descrição para o tutorial.' : 'Esse nome já está em uso. Por favor, escolha outro nome.'}</div>}
-                </C.UploadForm>
-
+                {userLoggedIn && userIsAdmin &&
+                    <C.UploadForm method="POST" onSubmit={handleFormSubmit}>
+                        <C.UploadInput
+                            type='file'
+                            name='video'
+                            onChange={(e) => setVideoFile(e.target.files ? e.target.files[0] : null)}
+                            ref={fileInputRef}
+                        />
+                        <C.UploadTitle
+                            type='input'
+                            name='fileName' 
+                            placeholder='Título do vídeo...' 
+                            value={fileName} 
+                            onChange={(e) => setFileName(e.target.value)} // Adicionando onChange para atualizar o estado do título
+                        />
+                        <C.UploadDescription 
+                            name='description' 
+                            placeholder='Descrição do tutorial (máximo de 150 caracteres)' 
+                            value={description} 
+                            onChange={(e) => setDescription(e.target.value)} 
+                            maxLength={150} 
+                            rows={4} 
+                            cols={50} 
+                        />
+                        <C.UploadButton type='submit' name='Enviar'>Enviar</C.UploadButton>
+                        {uploading && "Enviando..."}
+                        {showNameError && <div style={{ color: 'red' }}>{fileName.trim() === '' ? 'Por favor, digite uma descrição para o tutorial.' : 'Esse nome já está em uso. Por favor, escolha outro nome.'}</div>}
+                    </C.UploadForm>
+                }
 
                 {/* Vídeos */}             
                 {videos.map((video, index) => (
-                    <VideoItem key={index} url={video.url} name={video.name} description={video.description} onDelete={handleDeleteVideo} 
+                    <VideoItem 
+                        key={index} 
+                        url={video.url} 
+                        name={video.name} 
+                        description={video.description} 
+                        onDelete={handleDeleteVideo} 
+                        isAdmin = {userIsAdmin}
+                        isLoggedIn = {userLoggedIn}
                     />
                 ))}
                 

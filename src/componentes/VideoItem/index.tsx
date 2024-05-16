@@ -6,9 +6,11 @@ type Props = {
     name: string;
     description: string;
     onDelete: (name: string) => void;
+    isAdmin: boolean;
+    isLoggedIn: boolean;
 }
 
-export const VideoItem = ({ url, name,description, onDelete } : Props) => {
+export const VideoItem = ({ url, name,description, onDelete ,isAdmin, isLoggedIn } : Props) => {
     const handleDelete = () => {
         onDelete(name); 
     };
@@ -30,7 +32,7 @@ export const VideoItem = ({ url, name,description, onDelete } : Props) => {
                     <source src={url} type="video/mp4" />
                     Seu navegador não suporta vídeos HTML5.
                 </C.Video>
-                <C.DeleteButton onClick={() => onDelete(name)}>Excluir</C.DeleteButton>
+                {isAdmin && isLoggedIn && <C.DeleteButton onClick={() => onDelete(name)}>Excluir</C.DeleteButton>}
             </C.VideoWrapper>
         );
 }

@@ -6,8 +6,10 @@ import { Photo } from '../types/Photo.ts';
 import { PhotoItem } from '../componentes/PhotoItem/index.tsx';
 import { listAll, ref } from 'firebase/storage';
 import { storage } from '../libs/firebase.ts';
+import { useAuth } from '../contexto/useAuth.jsx';
 
 function Galeria() {
+    const { userLoggedIn, userIsAdmin } = useAuth();
     const [uploading, setUploading] = useState(false);
     const [loading, setLoading] = useState(false);
     const [photos, setPhotos] = useState<Photo[]>([]);
@@ -100,18 +102,20 @@ function Galeria() {
                 <C.Header>Galeria de Fotos</C.Header>
 
                 {/* Area de upload  */}
-                <C.UploadForm method="POST" onSubmit={handleFormSubmit}>
-                    <input
-                        type='file'
-                        name='image'
-                        onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)}
-                        ref={fileInputRef}
-                    />
-                    <input type='text' name='fileName' placeholder='Nome do arquivo' value={fileName} onChange={(e) => setFileName(e.target.value)} />
-                    <input type='submit' name='Enviar' />
-                    {uploading && "Enviando..."}
-                    {showNameError && <div style={{ color: 'red' }}>{fileName.trim() === '' ? 'Por favor, digite um nome para a foto.' : 'Esse nome já está em uso. Por favor, escolha outro nome.'}</div>}
-                </C.UploadForm>
+                {userLoggedIn && userIsAdmin &&
+                    <C.UploadForm method="POST" onSubmit={handleFormSubmit}>
+                        <input
+                            type='file'
+                            name='image'
+                            onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)}
+                            ref={fileInputRef}
+                        />
+                        <input type='text' name='fileName' placeholder='Nome do arquivo' value={fileName} onChange={(e) => setFileName(e.target.value)} />
+                        <input type='submit' name='Enviar' />
+                        {uploading && "Enviando..."}
+                        {showNameError && <div style={{ color: 'red' }}>{fileName.trim() === '' ? 'Por favor, digite um nome para a foto.' : 'Esse nome já está em uso. Por favor, escolha outro nome.'}</div>}
+                    </C.UploadForm>
+                }
             
                 {loading &&
                     <C.ScreenWarnings>
@@ -123,7 +127,13 @@ function Galeria() {
                 {photos && photos.length > 0 && (
                     <C.PhotoList>
                         {photos.map((item, index) => (
-                            <PhotoItem key={index} url={item.url} name={item.name} onDelete={handleDeletePhoto} />
+                            <PhotoItem 
+                                key={index} url={item.url} 
+                                name={item.name} 
+                                onDelete={handleDeletePhoto}                                 
+                                isAdmin={userIsAdmin}
+                                isLoggedIn={userLoggedIn}
+                            />
                         ))}
                     </C.PhotoList>
                 )}

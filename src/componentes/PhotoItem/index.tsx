@@ -5,9 +5,11 @@ type Props = {
     url: string;
     name: string;
     onDelete: (name: string) => void;
+    isAdmin: boolean;
+    isLoggedIn: boolean;
 }
 
-export const PhotoItem = ({ url, name, onDelete } : Props) => {
+export const PhotoItem = ({ url, name, onDelete , isAdmin, isLoggedIn} : Props) => {
     const handleDelete = () => {
         onDelete(name); 
     };
@@ -16,7 +18,7 @@ export const PhotoItem = ({ url, name, onDelete } : Props) => {
         <C.Container>
             <img src={url} alt={name} />
             <div>{name}</div>
-            <C.DeleteButton onClick={handleDelete}>Excluir</C.DeleteButton> {/* Botão de exclusão */}
+            {isLoggedIn && isAdmin && <C.DeleteButton onClick={handleDelete}>Excluir</C.DeleteButton>}
         </C.Container>
     );
 }

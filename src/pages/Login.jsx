@@ -5,6 +5,10 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { GoogleLogin } from '@react-oauth/google';
 import ModalCadastrese from './ModalCadastrese';
+import axios from 'axios';
+import bcrypt from 'bcryptjs';
+import { useAuth } from '../contexto/useAuth';
+
 // import FacebookLogin from 'react-facebook-login';
 // import { blue } from '@material-ui/core/colors';
 
@@ -66,6 +70,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const [cadastreseOpen, setCadastreseOpen] = useState(false);
+  const { setUserLoggedIn, setUserIsAdmin } = useAuth();
+  const classes = useStyles();
 
   const handleSignup = () => {
     setCadastreseOpen(true);
@@ -75,7 +81,39 @@ function Login() {
     setCadastreseOpen(false);
   };
 
-  const classes = useStyles();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    const formData = new FormData(event.target);
+    const plainPassword = formData.get('Senha');
+    const hashedPassword = await bcrypt.hash(plainPassword, 10);
+
+    console.log('form '+JSON.stringify(formData));
+    const data = {
+      usu_usuario: formData.get('Usuário'),
+      password: formData.get('Senha'),
+    };
+  
+    console.log('Dados enviados para o servidor:', data); 
+  
+    try {
+      const response = await axios.post('http://localhost:8000/usuarios/authenticate/', data);
+      console.log('Resposta do servidor:', response.data); 
+
+      setUserLoggedIn(true);
+      if (response.data.perfil_usuario.per_nome === 'Administrador') {
+        setUserIsAdmin(true);
+      }
+      // Lógica para redirecionar o usuário após a autenticação bem-sucedida
+    } catch (error) {
+      console.error('Erro ao autenticar:', error);
+      setUserLoggedIn(false);
+      setUserIsAdmin(false);
+      // Lógica para lidar com erros de autenticação
+    }
+  };
+  
+
   const responseMessage = (response) => {
     console.log(response);
   };
@@ -92,11 +130,11 @@ function Login() {
     <ThemeProvider theme={theme}>
       <Box className={classes.root}>
         <Box className={classes.box}>
-          <form className={classes.form} noValidate autoComplete="off">
-            <TextField id="standard-basic" label="Usuário" />
-            <TextField id="standard-basic" label="Senha" type="password" />
+          <form className={classes.form} onSubmit={handleSubmit} noValidate autoComplete="off">
+            <TextField id="standard-basic" label="Usuário" name="Usuário"/>
+            <TextField id="standard-basic" label="Senha" type="password" name="Senha"/>
             <Box className={classes.buttonGroup}>
-              <Button variant="contained" color="primary">
+              <Button type="submit" variant="contained" color="primary">
                 Entrar
               </Button>
               <Button variant="contained" color="secondary">
