@@ -6,8 +6,9 @@ import Box from '@material-ui/core/Box';
 import { GoogleLogin } from '@react-oauth/google';
 import ModalCadastrese from './ModalCadastrese';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
+//import bcrypt from 'bcryptjs';
 import { useAuth } from '../contexto/useAuth';
+import { useHistory } from 'react-router-dom';
 
 // import FacebookLogin from 'react-facebook-login';
 // import { blue } from '@material-ui/core/colors';
@@ -69,8 +70,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login() {
+  const history = useHistory();
   const [cadastreseOpen, setCadastreseOpen] = useState(false);
   const { setUserLoggedIn, setUserIsAdmin } = useAuth();
+  const [errorMessage, setErrorMessage] = useState('');
+
   const classes = useStyles();
 
   const handleSignup = () => {
@@ -85,8 +89,8 @@ function Login() {
     event.preventDefault();
   
     const formData = new FormData(event.target);
-    const plainPassword = formData.get('Senha');
-    const hashedPassword = await bcrypt.hash(plainPassword, 10);
+   // const plainPassword = formData.get('Senha');
+    //const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
     console.log('form '+JSON.stringify(formData));
     const data = {
@@ -104,22 +108,23 @@ function Login() {
       if (response.data.perfil_usuario.per_nome === 'Administrador') {
         setUserIsAdmin(true);
       }
-      // Lógica para redirecionar o usuário após a autenticação bem-sucedida
+      history.push('/home');
+
     } catch (error) {
       console.error('Erro ao autenticar:', error);
       setUserLoggedIn(false);
       setUserIsAdmin(false);
       // Lógica para lidar com erros de autenticação
+      setErrorMessage('Usuário ou senha incorretos. Por favor, tente novamente.');
     }
-  };
-  
+  };  
 
   const responseMessage = (response) => {
     console.log(response);
   };
-  const errorMessage = (error) => {
-    console.log(error);
-  };
+  // const errorMessage = (error) => {
+  //   console.log(error);
+  // };
 
   // const responseFacebook = (response) => {
   //   // Aqui você pode lidar com a resposta do login com o Facebook
@@ -151,6 +156,13 @@ function Login() {
                 Cadastre-se
               </Button>
             </Box>
+
+            {/* Renderizar mensagem de erro */}
+            {errorMessage && (
+              <Box mt={4} color="red">
+                {errorMessage}
+              </Box>
+            )}
 
             {/* <Box className={classes.facebookButton}>
               <FacebookLogin
