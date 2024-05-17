@@ -4,7 +4,8 @@ from cursos.views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIVi
 from perfil_usuario.views import PerfilUsuarioListCreate, PerfilUsuarioDetail
 from usuarios.views import UsuarioListCreate, UsuarioDetail,UsuarioAuthenticationAPIView
 from inscricao_cursos.views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
-
+from django.http import HttpResponse
+from django.contrib.auth import authenticate
 from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -12,6 +13,18 @@ from drf_yasg import openapi
 router = routers.DefaultRouter()
 
 router.register('inscricoes', InscricaoCursoViewSet)  # Registre o conjunto de visualizações no roteador
+
+def custom_swagger_login(request):
+    username = request.GET.get('username')
+    password = request.GET.get('password')
+
+    # Verificar se o usuário e senha são válidos
+    user = authenticate(request, username=username, password=password)
+    if user is None:
+        return HttpResponse('Usuário ou senha inválidos', status=401)
+
+    # Se a autenticação for bem-sucedida, redirecione para o Swagger
+    return HttpResponseRedirect('/swagger/')
 
 schema_view = get_schema_view(
     openapi.Info(
