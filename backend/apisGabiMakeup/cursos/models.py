@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.db import models
 
-class Curso(models.Model):
+class Curso(models.Model): 
     cur_id = models.AutoField(primary_key=True)  # Campo de chave primária
     cur_ativo = models.BooleanField(default=True)  # Indica se o curso está ativo
     cur_titulo = models.CharField(max_length=100)  # Título do curso
