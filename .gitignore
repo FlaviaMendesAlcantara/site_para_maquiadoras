@@ -17,3 +17,7 @@
 backend/apisGabiMakeup/credentials
 backend/apisGabiMakeup/ .env
 
+*.pyc
+__pycache__/
+venv/
+
