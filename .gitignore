@@ -20,4 +20,3 @@ backend/apisGabiMakeup/ .env
 *.pyc
 __pycache__/
 venv/
-
