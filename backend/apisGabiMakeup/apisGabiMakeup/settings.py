@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'drf_yasg',
     'apisGabiMakeup',
     'cursos',
+    'perfil_usuario',
+    'usuarios',
+    'inscricao_cursos',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +57,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "whitnoise.middleware.WhitenoiseMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
 
 ROOT_URLCONF = 'apisGabiMakeup.urls'
 
@@ -75,6 +84,34 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'apisGabiMakeup.wsgi.application'
+
+#condfiguracao do swagger
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'api_version': 'v1',
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete',
+        'head',
+    ],
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        # Outras classes de autenticação, se necessário
+    ),
+}
 
 
 # Database
@@ -128,9 +165,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR/'assets'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
