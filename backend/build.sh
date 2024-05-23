@@ -15,5 +15,5 @@ echo $GOOGLE_APPLICATION_CREDENTIALS_JSON > credentials.json
 export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credentials.json
 
 # Iniciar o Cloud SQL Auth Proxy
-./cloud_sql_proxy -dir=/cloudsql -instances=<gabi-makeup-420121:us-central1:bd-site-maquiadoras> &
+./cloud_sql_proxy -dir=/cloudsql -instances=<gabi-makeup-420121:us-central1:bd-site-maquiadoras>
 
