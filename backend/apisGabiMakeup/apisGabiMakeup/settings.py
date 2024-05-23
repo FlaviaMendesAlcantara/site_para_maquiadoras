@@ -70,7 +70,7 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
-ROOT_URLCONF = 'backend.apisGabiMakeup.apisGabiMakeup.urls'
+ROOT_URLCONF = 'apisGabiMakeup.urls'
 
 TEMPLATES = [
     {
@@ -88,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.apisGabiMakeup.apisGabiMakeup.wsgi.application'
+WSGI_APPLICATION = 'apisGabiMakeup.wsgi.application'
 
 #condfiguracao do swagger
 SWAGGER_SETTINGS = {
