@@ -13,7 +13,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 router = routers.DefaultRouter()
 
-router.register('inscricoes', InscricaoCursoViewSet)  # Registre o conjunto de visualizações no roteador
+# router.register('inscricoes', InscricaoCursoViewSet)  # Registre o conjunto de visualizações no roteador
 
 def custom_swagger_login(request):
     username = request.GET.get('username')
