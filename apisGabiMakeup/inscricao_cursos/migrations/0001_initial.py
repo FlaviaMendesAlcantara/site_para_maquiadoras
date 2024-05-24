@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('cursos', '__first__'),
+        # ('cursos', '__first__'),
     ]
 
     operations = [
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('ins_data_inscricao', models.DateTimeField(auto_now_add=True)),
                 ('ins_data_alteracao', models.DateTimeField(auto_now=True)),
                 ('ins_data_exclusao', models.DateTimeField(blank=True, null=True)),
-                ('ins_codigo_curso', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cursos.curso')),
+                # ('ins_codigo_curso', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cursos.curso')),
             ],
             options={
                 'db_table': 'tb_inscricao_curso',

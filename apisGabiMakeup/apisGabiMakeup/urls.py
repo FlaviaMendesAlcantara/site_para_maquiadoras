@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from cursos.views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
+# from cursos.views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
 from perfil_usuario.views import PerfilUsuarioListCreate, PerfilUsuarioDetail
 from usuarios.views import UsuarioListCreate, UsuarioDetail,UsuarioAuthenticationAPIView
-from inscricao_cursos.views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
+# from inscricao_cursos.views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from rest_framework import routers, permissions
@@ -47,8 +47,8 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
-    path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
+    # path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
+    # path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
 
     path('perfis/', PerfilUsuarioListCreate.as_view(), name='perfil-list-create'),
     path('perfis/<int:pk>/', PerfilUsuarioDetail.as_view(), name='perfil-detail'),

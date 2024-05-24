@@ -1,9 +1,9 @@
 from django.db import models
-from cursos.models import Curso
+# from cursos.models import Curso
 
 class InscricaoCurso(models.Model):
     ins_id = models.AutoField(primary_key=True)
-    ins_codigo_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    # ins_codigo_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     ins_nome_completo = models.CharField(max_length=100)
     ins_data_nascimento = models.DateField()
     ins_numero_telefone = models.CharField(max_length=20)
