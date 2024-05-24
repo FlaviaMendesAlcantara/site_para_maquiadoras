@@ -50,12 +50,12 @@ urlpatterns = [
     # path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
     # path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
 
-    path('perfis/', PerfilUsuarioListCreate.as_view(), name='perfil-list-create'),
-    path('perfis/<int:pk>/', PerfilUsuarioDetail.as_view(), name='perfil-detail'),
+    # path('perfis/', PerfilUsuarioListCreate.as_view(), name='perfil-list-create'),
+    # path('perfis/<int:pk>/', PerfilUsuarioDetail.as_view(), name='perfil-detail'),
 
-    path('usuarios/', UsuarioListCreate.as_view(), name='usuario-list-create'),
-    path('usuarios/<int:pk>/', UsuarioDetail.as_view(), name='usuario-detail'),
+    # path('usuarios/', UsuarioListCreate.as_view(), name='usuario-list-create'),
+    # path('usuarios/<int:pk>/', UsuarioDetail.as_view(), name='usuario-detail'),
 
-    path('usuarios/authenticate/', UsuarioAuthenticationAPIView.as_view(), name='usuario-authenticate')
+    # path('usuarios/authenticate/', UsuarioAuthenticationAPIView.as_view(), name='usuario-authenticate')
     
 ]
