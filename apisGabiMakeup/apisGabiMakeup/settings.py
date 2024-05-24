@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'apisGabiMakeup',
     # 'cursos',
     # 'perfil_usuario',
-    # 'usuarios',
+    'usuarios',
     # 'inscricao_cursos',
     'corsheaders',
 ]
