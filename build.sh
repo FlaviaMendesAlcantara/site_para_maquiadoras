@@ -1,8 +1,9 @@
 set -o errexit
 
 pip install -r apisGabiMakeup/requirements.txt
-python apisGabiMakeup/manage.py collectstatic --no-input
 python apisGabiMakeup/manage.py migrate 
+python apisGabiMakeup/manage.py collectstatic --noinput
+
 
 # Baixar e instalar o Cloud SQL Auth Proxy
 wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
