@@ -1,6 +1,6 @@
 set -o errexit
 
-pip install -r backend/requirements.txt
+pip install -r backend/apisGabiMakeup/requirements.txt
 python backend/apisGabiMakeup/manage.py collectstatic --no-input
 python backend/apisGabiMakeup/manage.py migrate 
 
