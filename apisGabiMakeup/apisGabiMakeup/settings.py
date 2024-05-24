@@ -45,10 +45,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'apisGabiMakeup',
-    'cursos',
-    'perfil_usuario',
-    'usuarios',
-    'inscricao_cursos',
     'corsheaders',
 ]
 
