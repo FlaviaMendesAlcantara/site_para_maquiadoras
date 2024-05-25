@@ -10,7 +10,6 @@ from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from . import views
 
 router = routers.DefaultRouter()
 
@@ -48,7 +47,6 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
 
     # path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
     # path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
