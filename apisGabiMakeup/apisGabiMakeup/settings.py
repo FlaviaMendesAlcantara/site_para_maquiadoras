@@ -32,12 +32,12 @@ ALLOWED_HOSTS = ['gabi-makeup-api-2e0d.onrender.com', '127.0.0.1']
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Diretório onde o collectstatic coloca os arquivos
 
 # Lista de diretórios adicionais onde o Django deve buscar arquivos estáticos
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Diretório onde seus arquivos estáticos de desenvolvimento estão localizados
+    os.path.join(BASE_DIR, 'staticfiles'),  # Diretório onde seus arquivos estáticos de desenvolvimento estão localizados
 ]
 
 # Application definition
