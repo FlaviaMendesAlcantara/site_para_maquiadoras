@@ -3,7 +3,7 @@
 from django.contrib import admin
 from django.urls import path, include
 # from cursos.views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
-# from perfil_usuario.views import PerfilUsuarioListCreate, PerfilUsuarioDetail
+# from apisGabiMakeup.perfil_usuario.views import PerfilUsuarioListCreate, PerfilUsuarioDetail
 # from usuarios.views import UsuarioListCreate, UsuarioDetail,UsuarioAuthenticationAPIView
 # from inscricao_cursos.views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
 from django.http import HttpResponse

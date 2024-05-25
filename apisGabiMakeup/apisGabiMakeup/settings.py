@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'apisGabiMakeup',
-    'teste.apisGabiMakeup.TesteConfig',
     # 'cursos',
     # 'perfil_usuario',
     # 'usuarios',

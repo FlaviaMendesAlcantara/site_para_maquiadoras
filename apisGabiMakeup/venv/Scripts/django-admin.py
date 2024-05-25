@@ -1,4 +1,4 @@
-#!C:\Flavia\Projeto - TCC\site_para_maquiadoras\backend\apisGabiMakeup\venv\Scripts\python.exe
+#!C:\Flavia\Projeto - TCC\site_para_maquiadoras\apisGabiMakeup\venv\Scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
