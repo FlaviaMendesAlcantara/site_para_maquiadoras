@@ -1,29 +1,22 @@
 # # apisGabiMakeup/urls.py
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('', views.hello_world, name='home'),  # Rota para a página inicial
-    path('hello/', views.hello_world, name='hello_world'),
-]
-
 from django.contrib import admin
 from django.urls import path, include
 from .views import PerfilUsuarioListCreate, PerfilUsuarioDetail
 from .views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
-# from apisGabiMakeup.perfil_usuario.views import PerfilUsuarioListCreate, PerfilUsuarioDetail
-from .views import UsuarioListCreate, UsuarioDetail,UsuarioAuthenticationAPIView
-# from inscricao_cursos.views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
-from django.http import HttpResponse
-from django.contrib.auth import authenticate
-from rest_framework import routers, permissions
+from .views import UsuarioListCreate, UsuarioDetail, UsuarioAuthenticationAPIView
+from rest_framework import routers
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from rest_framework import permissions
+from . import views
+from .views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
+from django.http import HttpResponse
+from django.contrib.auth import authenticate
+
 
 router = routers.DefaultRouter()
 
-# # router.register('inscricoes', InscricaoCursoViewSet)  # Registre o conjunto de visualizações no roteador
+router.register('inscricoes', InscricaoCursoViewSet)  # Registre o conjunto de visualizações no roteador
 
 def custom_swagger_login(request):
     username = request.GET.get('username')
@@ -52,6 +45,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     
+    # path('', views.hello_world, name='home'),  # Rota para a página inicial
+    path('hello/', views.hello_world, name='hello_world'),
+
     path('', include(router.urls)),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
@@ -70,3 +66,7 @@ urlpatterns = [
     path('usuarios/authenticate/', UsuarioAuthenticationAPIView.as_view(), name='usuario-authenticate')
     
 ]
+
+# Adicione isso ao final do arquivo para servir os arquivos estáticos corretamente em produção
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
