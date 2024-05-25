@@ -50,8 +50,6 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    path('perfil_usuario/', include('perfil_usuario.urls')),
-
     # path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
     # path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
 
