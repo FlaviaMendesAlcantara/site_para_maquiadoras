@@ -32,12 +32,10 @@ ALLOWED_HOSTS = ['gabi-makeup-api-2e0d.onrender.com', '127.0.0.1']
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/staticfiles/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Diretório onde o collectstatic coloca os arquivos
-
-# Lista de diretórios adicionais onde o Django deve buscar arquivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Diretórios adicionais de onde Django deve buscar arquivos estáticos
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),  # Diretório onde seus arquivos estáticos de desenvolvimento estão localizados
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Application definition
@@ -172,8 +170,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-
-# MEDIA_URL = 'media/'
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
