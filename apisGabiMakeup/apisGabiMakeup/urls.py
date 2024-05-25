@@ -56,7 +56,8 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
-    path('admin/', admin.site.urls),
+    path('admin/', admin.apisGabiMakeup.urls),
+    path("", views.hello_world.as_view(), name="index"),
 
     # path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
     # path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
