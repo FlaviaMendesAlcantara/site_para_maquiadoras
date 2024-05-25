@@ -1,6 +1,7 @@
 set -o errexit
 
 pip install -r apisGabiMakeup/requirements.txt
+python apisGabiMakeup/manage.py makemigrations
 python apisGabiMakeup/manage.py migrate 
 python apisGabiMakeup/manage.py collectstatic --noinput
 
