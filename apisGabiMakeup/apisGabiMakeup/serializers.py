@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import PerfilUsuario
 from django.contrib.auth import authenticate
-from .models import Usuario
+from .models import Usuario, Curso, InscricaoCurso
 
 class UsuarioSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)  # Adiciona o campo password como write_only
@@ -22,9 +22,19 @@ class UsuarioSerializer(serializers.ModelSerializer):
         )
         return usuario
 
-
-
 class PerfilUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = PerfilUsuario
+        fields = '__all__'
+
+
+class CursoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Curso
+        fields = '__all__'
+
+
+class InscricaoCursoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InscricaoCurso
         fields = '__all__'

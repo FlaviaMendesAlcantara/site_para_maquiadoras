@@ -2,17 +2,18 @@
 
 from django.http import JsonResponse
 from rest_framework import generics, status
-from .models import PerfilUsuario
-from .serializers import PerfilUsuarioSerializer
+from .models import PerfilUsuario, Usuario, Curso, InscricaoCurso
+from .serializers import PerfilUsuarioSerializer,UsuarioSerializer,CursoSerializer, InscricaoCursoSerializer
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Usuario
-from .serializers import UsuarioSerializer
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 
 class UsuarioListCreate(generics.CreateAPIView):
     serializer_class = UsuarioSerializer
@@ -114,3 +115,18 @@ def index(request):
 
 def hello_world(request):
     return JsonResponse({'message': 'Hello, world!'})
+
+
+class CursoListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+
+class CursoRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+
+
+class InscricaoCursoViewSet(viewsets.ModelViewSet):
+    queryset = InscricaoCurso.objects.all()
+    serializer_class = InscricaoCursoSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
