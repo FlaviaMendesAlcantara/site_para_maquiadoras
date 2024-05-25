@@ -10,7 +10,7 @@ from drf_yasg import openapi
 from rest_framework import permissions
 from . import views
 from .views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 
 
@@ -44,15 +44,14 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    
+
+    path('admin/', admin.site.urls),
     # path('', views.hello_world, name='home'),  # Rota para a página inicial
     path('hello/', views.hello_world, name='hello_world'),
 
     path('', include(router.urls)),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
-    path('admin/', admin.site.urls),
 
     path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
     path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),

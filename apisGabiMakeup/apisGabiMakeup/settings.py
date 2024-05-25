@@ -33,6 +33,10 @@ ALLOWED_HOSTS = ['gabi-makeup-api-2e0d.onrender.com', '127.0.0.1']
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Diretórios adicionais de onde Django deve buscar arquivos estáticos
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Application definition
 
