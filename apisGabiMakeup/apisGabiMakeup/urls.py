@@ -10,7 +10,7 @@ urlpatterns = [
 from django.contrib import admin
 from django.urls import path, include
 from .views import PerfilUsuarioListCreate, PerfilUsuarioDetail
-# from cursos.views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
+from .views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
 # from apisGabiMakeup.perfil_usuario.views import PerfilUsuarioListCreate, PerfilUsuarioDetail
 from .views import UsuarioListCreate, UsuarioDetail,UsuarioAuthenticationAPIView
 # from inscricao_cursos.views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
@@ -58,8 +58,8 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    # path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
-    # path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
+    path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
+    path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
 
     path('perfis/', PerfilUsuarioListCreate.as_view(), name='perfil-list-create'),
     path('perfis/<int:pk>/', PerfilUsuarioDetail.as_view(), name='perfil-detail'),
@@ -67,6 +67,6 @@ urlpatterns = [
     path('usuarios/', UsuarioListCreate.as_view(), name='usuario-list-create'),
     path('usuarios/<int:pk>/', UsuarioDetail.as_view(), name='usuario-detail'),
 
-    # path('usuarios/authenticate/', UsuarioAuthenticationAPIView.as_view(), name='usuario-authenticate')
+    path('usuarios/authenticate/', UsuarioAuthenticationAPIView.as_view(), name='usuario-authenticate')
     
 ]
