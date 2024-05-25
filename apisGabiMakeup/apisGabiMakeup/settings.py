@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'apisGabiMakeup',
     # 'cursos',
-    # 'perfil_usuario',
+    'perfil_usuario',
     # 'usuarios',
     # 'inscricao_cursos',
     'corsheaders',

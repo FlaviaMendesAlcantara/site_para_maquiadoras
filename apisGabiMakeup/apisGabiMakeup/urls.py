@@ -1,3 +1,5 @@
+# apisGabiMakeup/urls.py
+
 from django.contrib import admin
 from django.urls import path, include
 # from cursos.views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
@@ -47,6 +49,8 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('admin/', admin.site.urls),
+
+    path('perfil_usuario/', include('perfil_usuario.urls')),
 
     # path('cursos/', CursoListCreateAPIView.as_view(), name='curso-list-create'),
     # path('cursos/<int:pk>/', CursoRetrieveUpdateDestroyAPIView.as_view(), name='curso-retrieve-update-destroy'),
