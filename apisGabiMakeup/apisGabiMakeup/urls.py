@@ -3,12 +3,11 @@ from django.contrib import admin
 from django.urls import path, include
 from .views import PerfilUsuarioListCreate, PerfilUsuarioDetail
 from .views import CursoListCreateAPIView, CursoRetrieveUpdateDestroyAPIView
-from .views import UsuarioListCreate, UsuarioDetail, UsuarioAuthenticationAPIView
+from .views import UsuarioListCreate, UsuarioDetail, UsuarioAuthenticationAPIView, hello_world
 from rest_framework import routers
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from . import views
 from .views import InscricaoCursoViewSet  # Importe o conjunto de visualizações
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
@@ -47,7 +46,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     # path('', views.hello_world, name='home'),  # Rota para a página inicial
-    path('hello/', views.hello_world, name='hello_world'),
+    path('hello/', hello_world, name='hello_world'),
 
     path('', include(router.urls)),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
