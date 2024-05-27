@@ -46,7 +46,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     # path('', views.hello_world, name='home'),  # Rota para a página inicial
-    path('hello/', hello_world, name='hello_world'),
+    
 
     path('', include(router.urls)),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

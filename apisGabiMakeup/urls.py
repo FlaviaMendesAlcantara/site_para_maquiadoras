@@ -5,5 +5,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('apisGabiMakeup.apisGabiMakeup.urls')),
+    path('v1/', include('apisGabiMakeup.apisGabiMakeup.urls')),
 ]
