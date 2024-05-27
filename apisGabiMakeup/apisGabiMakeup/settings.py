@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-6u^k$y_t8%hdr76y=)xwg^yd+u)^t1!bnx$#!b5ay0#$o#^_em
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['gabi-makeup-api-2e0d.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
