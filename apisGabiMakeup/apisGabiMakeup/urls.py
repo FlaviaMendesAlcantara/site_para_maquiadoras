@@ -31,11 +31,11 @@ def custom_swagger_login(request):
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="API Documentation",
+        title="Gabi Makeup API Documentaçao",
         default_version='v1',
-        description="API Documentation",
+        description="Documentação das rotas da api do site de maquiadoras Gabi makeup",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@yourdomain.local"),
+        contact=openapi.Contact(email="flavinhams23@hotmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
