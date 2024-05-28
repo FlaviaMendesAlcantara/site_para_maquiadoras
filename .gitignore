@@ -18,3 +18,5 @@ static
 backend/apisGabiMakeup/credentials
 backend/apisGabiMakeup/ .env
 
+
+.vercel
