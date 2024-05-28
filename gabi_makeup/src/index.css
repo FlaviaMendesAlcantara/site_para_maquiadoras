@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.centered-text {
+  text-align: center;
+}
+
+/* styles.css */
+
+.welcomeText {
+  color: #757171; /* Cor de texto baseada no degradê de cinza */
+  font-family: 'Dancing Script', cursive; /* Escolha uma fonte elegante e alegre */
+  font-size: 4em; /* Tamanho da fonte, ajuste conforme necessário */
+  margin-bottom: 20px; /* Adicione um espaço na parte inferior do texto */
+}
+

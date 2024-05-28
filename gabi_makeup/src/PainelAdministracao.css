@@ -1,0 +1,33 @@
+.painel-container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: #424242;
+}
+
+p {
+    color: #666;
+}
+.button-container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente (opcional) */
+    margin-bottom: 20px;
+}
+  
+  .button-container button {
+    flex: 0.5; /* Faz com que os botões ocupem todo o espaço disponível horizontalmente */
+    margin-right: 10px; /* Adiciona margem à direita de cada botão para separá-los */
+  }
+  
+  .button-container button:last-child {
+    margin-right: 0; /* Remove a margem à direita do último botão para evitar espaço extra */
+  }
+  
