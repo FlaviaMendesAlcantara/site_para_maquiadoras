@@ -6,7 +6,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import "../Cursos.css";
 import maquiagemIcon from "../img/autoMaquiagem.jpg"; 
 import InscricaoForm from "./InscricaoForm.jsx";
-
+ 
 /**
  * Componente funcional que representa a página de cursos.
  * @return {JSX.Element} O componente JSX da página de cursos.
@@ -21,7 +21,8 @@ function Cursos() {
   useEffect(() => {
     async function fetchCursos() {
       try {
-        const response = await axios.get('https://gabi-makeup-api-2e0d.onrender.com/cursos/');
+        const response = await axios.get('https://gabi-makeup-api-2e0d.onrender.com/v1/cursos/');
+        console.log(response);
         const cursosFormatted = response.data
         .filter(curso => curso.cur_ativo) // Filtrando apenas cursos ativos
         .map(curso => ({

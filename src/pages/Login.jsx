@@ -101,7 +101,7 @@ function Login() {
     console.log('Dados enviados para o servidor:', data); 
   
     try {
-      const response = await axios.post('http://localhost:8000/usuarios/authenticate/', data);
+      const response = await axios.post('https://gabi-makeup-api-2e0d.onrender.com/v1/usuarios/authenticate/', data);
       console.log('Resposta do servidor:', response.data); 
 
       setUserLoggedIn(true);
@@ -147,9 +147,9 @@ function Login() {
               </Button>
             </Box>
             
-            <Box className={classes.googleButton}>
+            {/* <Box className={classes.googleButton}>
               <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-            </Box>
+            </Box> */}
 
             <Box>
               <Button variant="contained" color="primary" onClick={handleSignup}>
