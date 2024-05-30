@@ -13,9 +13,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 
 class UsuarioListCreate(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = UsuarioSerializer
 
     def create(self, request, *args, **kwargs):
@@ -63,11 +67,13 @@ class UsuarioListCreate(generics.CreateAPIView):
         return self.create(request, *args, **kwargs)
 
 class UsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
 
 class UsuarioAuthenticationAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         # Recebendo os dados do request
         usu_usuario = request.data.get('usu_usuario')
@@ -101,16 +107,18 @@ class UsuarioAuthenticationAPIView(APIView):
             return Response({'error': 'Senha incorreta.'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class PerfilUsuarioListCreate(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = PerfilUsuario.objects.all()
     serializer_class = PerfilUsuarioSerializer
 
 class PerfilUsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = PerfilUsuario.objects.all()
     serializer_class = PerfilUsuarioSerializer
 
 
 def index(request):
-    return HttpResponse("Olá, este é o perfil do usuário.")
+    return HttpResponse("Olá, este é um teste de visualização.")
 
 
 def hello_world(request):
@@ -118,10 +126,12 @@ def hello_world(request):
 
 
 class CursoListCreateAPIView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
 class CursoRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
