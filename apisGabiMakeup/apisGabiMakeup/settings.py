@@ -111,12 +111,12 @@ SWAGGER_SETTINGS = {
     }
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [],  # Remova todas as classes de autenticação
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [],  # Remova todas as classes de autenticação
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.authentication.SessionAuthentication',
+#     ],
+# }
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': [
