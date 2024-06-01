@@ -18,7 +18,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response 
 
 class UsuarioListCreate(generics.CreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = UsuarioSerializer
 
     def create(self, request, *args, **kwargs):
@@ -66,12 +66,12 @@ class UsuarioListCreate(generics.CreateAPIView):
         return self.create(request, *args, **kwargs)
 
 class UsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
 class UsuarioAuthenticationAPIView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         # Recebendo os dados do request
         usu_usuario = request.data.get('usu_usuario')
@@ -96,7 +96,6 @@ class UsuarioAuthenticationAPIView(APIView):
                 'perfil_usuario': {
                     'per_id': perfil_usuario.per_id,
                     'per_nome': perfil_usuario.per_nome,
-                    # Adicione outros campos do perfil que deseja retornar
                 }
             }
             return Response(data, status=status.HTTP_200_OK)
@@ -105,12 +104,12 @@ class UsuarioAuthenticationAPIView(APIView):
             return Response({'error': 'Senha incorreta.'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class PerfilUsuarioListCreate(generics.ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = PerfilUsuario.objects.all()
     serializer_class = PerfilUsuarioSerializer
 
 class PerfilUsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = PerfilUsuario.objects.all()
     serializer_class = PerfilUsuarioSerializer
 
@@ -132,6 +131,7 @@ class CursoRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CursoSerializer
 
 class InscricaoCursoViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = InscricaoCurso.objects.all()
     serializer_class = InscricaoCursoSerializer
     # permission_classes = [IsAuthenticatedOrReadOnly]
