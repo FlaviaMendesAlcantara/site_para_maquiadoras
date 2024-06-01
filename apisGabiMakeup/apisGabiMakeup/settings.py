@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-6u^k$y_t8%hdr76y=)xwg^yd+u)^t1!bnx$#!b5ay0#$o#^_em
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','gabi-makeup-api-2e0d.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','gabi-makeup-api-2e0d.onrender.com',"https://gabi-makeup.vercel.app/",]
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
@@ -65,7 +65,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    'gabi-makeup-api-2e0d.onrender.com',
+    "https://gabi-makeup.vercel.app/",
+    "https://gabi-makeup-api-2e0d.onrender.com/",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
