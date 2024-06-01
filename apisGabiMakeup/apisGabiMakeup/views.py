@@ -70,7 +70,6 @@ class UsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
-
 class UsuarioAuthenticationAPIView(APIView):
     # permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
@@ -115,14 +114,12 @@ class PerfilUsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PerfilUsuario.objects.all()
     serializer_class = PerfilUsuarioSerializer
 
-
 def index(request):
     return HttpResponse("Olá, este é um teste de visualização.")
 
 
 def hello_world(request):
     return JsonResponse({'message': 'Hello, world!'})
-
 
 class CursoListCreateAPIView(generics.ListCreateAPIView):
     # permission_classes = [IsAuthenticated]
@@ -134,8 +131,7 @@ class CursoRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
-
 class InscricaoCursoViewSet(viewsets.ModelViewSet):
     queryset = InscricaoCurso.objects.all()
     serializer_class = InscricaoCursoSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
