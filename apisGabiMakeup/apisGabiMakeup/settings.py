@@ -13,10 +13,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY'),
 DEBUG = False
 
 ALLOWED_HOSTS = [    
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://gabi-makeup.vercel.app",
-    "https://gabi-makeup-api-2e0d.onrender.com",
+    "localhost:3000",
+    "127.0.0.1:3000",
+    "gabi-makeup.vercel.app",
+    "gabi-makeup-api-2e0d.onrender.com",
     ]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = ['GET', 'POST',]
