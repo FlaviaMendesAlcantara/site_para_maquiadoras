@@ -13,32 +13,30 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-
+# import sys
+# print(sys.path)
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# print(sys.path)
 
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6u^k$y_t8%hdr76y=)xwg^yd+u)^t1!bnx$#!b5ay0#$o#^_em'
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'gabi-makeup-api-2e0d.onrender.com',
-    'gabi-makeup.vercel.app',
-]
+ALLOWED_HOSTS = ['127.0.0.1','localhost','gabi-makeup-api-2e0d.onrender.com']
 
-CORS_ALLOW_ALL_ORIGINS = False  # Corrigido para False para evitar duplicação
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://gabi-makeup.vercel.app",
-    "https://gabi-makeup-api-2e0d.onrender.com",
-]
-
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -64,6 +62,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
 ROOT_URLCONF = 'apisGabiMakeup.urls'
 
@@ -85,6 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'apisGabiMakeup.wsgi.application'
 
+#condfiguracao do swagger
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     'api_version': 'v1',
@@ -105,6 +111,17 @@ SWAGGER_SETTINGS = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        # Outras classes de autenticação, se necessário
+    ),
+}
+
+
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
 load_dotenv() 
 
 DATABASES = {
@@ -117,6 +134,9 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'),
     }
 }
+
+# Password validation
+# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -133,6 +153,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Internationalization
+# https://docs.djangoproject.com/en/5.0/topics/i18n/
+
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
@@ -141,9 +165,16 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'assets'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# MEDIA_URL = 'media/'
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
