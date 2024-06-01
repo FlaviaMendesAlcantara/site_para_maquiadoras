@@ -65,6 +65,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    'gabi-makeup-api-2e0d.onrender.com',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -116,6 +117,12 @@ SWAGGER_SETTINGS = {
 #     'DEFAULT_PERMISSION_CLASSES': [
 #         'rest_framework.authentication.SessionAuthentication',
 #     ],
+# }
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.SessionAuthentication',
+#         # Outras classes de autenticação, se necessário
+#     ),
 # }
 
 # REST_FRAMEWORK = {
