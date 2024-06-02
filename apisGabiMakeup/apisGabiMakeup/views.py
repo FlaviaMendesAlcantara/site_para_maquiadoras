@@ -14,11 +14,11 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response 
 
 class UsuarioListCreate(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = UsuarioSerializer
 
     def create(self, request, *args, **kwargs):
@@ -71,7 +71,7 @@ class UsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UsuarioSerializer
 
 class UsuarioAuthenticationAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
         # Recebendo os dados do request
         usu_usuario = request.data.get('usu_usuario')
