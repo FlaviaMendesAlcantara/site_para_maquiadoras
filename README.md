@@ -12,7 +12,7 @@ Localmente
 2. navegue ate a pasta  `cd site_para_maquiadoras/apisGabiMakeup` 
 3. Abra o cmd 
 4. Execute `python -m venv venv` para criar o ambiente virtual.
-5. Execute `.\env\Scripts\activate ` para ativar o ambiente virtual no windows.
+5. Execute `.\venv\Scripts\activate ` para ativar o ambiente virtual no windows.
 6. Execute `pip install -r requeriments.txt` para instalar as dependências do Django.
 7. Execute `python manage.py migrate` para fazer as migrações do banco de dados.OBS: So vai funcionar com o arquivo .env na raiz do projeto site maquiadoras
 8. Execute `python manage.py runserver` Execute o servidor localmente.
@@ -26,11 +26,11 @@ Este projeto está configurado para implantações automáticas no render.com. T
 As configuracoes de Build no render:
 
 Build & Deploy
-Repository: `https://github.com/FlaviaMendesAlcantara/site_para_maquiadoras`
-Branch: `producaoApis` 
-Build Command: `sh build.sh` (esse comando executa tudo que esta no arquivo build na raiz do meu projeto fazendo a implanção automatica)
-Start Command: `gunicorn apisGabiMakeup.apisGabiMakeup.wsgi:application --bind 0.0.0.0:8000`
-Auto-Deploy: `yes`
+    1. Repository: `https://github.com/FlaviaMendesAlcantara/site_para_maquiadoras`
+    2. Branch: `producaoApis` 
+    3. Build Command: `sh build.sh` (esse comando executa tudo que esta no arquivo build na raiz do meu projeto fazendo a implanção automatica)
+    4. Start Command: `gunicorn apisGabiMakeup.apisGabiMakeup.wsgi:application --bind 0.0.0.0:8000`
+    5. Auto-Deploy: `yes`
 
 
 
