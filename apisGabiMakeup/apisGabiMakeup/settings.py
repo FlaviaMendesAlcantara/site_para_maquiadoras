@@ -10,11 +10,11 @@ load_dotenv()
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [    
-    "localhost:3000",
-    "127.0.0.1:3000",
+    "localhost",
+    "127.0.0.1",
     "gabi-makeup.vercel.app",
     "gabi-makeup-api-2e0d.onrender.com",
     ]
