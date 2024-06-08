@@ -18,7 +18,8 @@ Localmente
 8. Execute `python manage.py runserver` Execute o servidor localmente.
 9. Acesse `http://127.0.0.1:8000/swagger/` para visualizar as rotas
 
-Implantação Automática render.com:------------------------
+Implantação Automática render.com:
+------------------------
 
 Este projeto está configurado para implantações automáticas no render.com. Todas as alterações feitas no repositório do GitHub push ou pull request serão automaticamente implantadas no ambiente de produção pelo render.com, sem a necessidade de intervenção manual.
 
@@ -30,6 +31,7 @@ Branch: `producaoApis`
 Build Command: `sh build.sh` (esse comando executa tudo que esta no arquivo build na raiz do meu projeto fazendo a implanção automatica)
 Start Command: `gunicorn apisGabiMakeup.apisGabiMakeup.wsgi:application --bind 0.0.0.0:8000`
 Auto-Deploy: `yes`
+
 
 
 
