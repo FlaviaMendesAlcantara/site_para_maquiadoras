@@ -6,6 +6,8 @@
 # /build
 static
 gabi_makeup
+apisGabiMakeup/venv
+staticfiles
 
 
 # misc
